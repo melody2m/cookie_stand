@@ -1,19 +1,20 @@
 'use strict;'
 
+// global variables
+
 var hours = ['6am', '7am', '8am', '9am', '10am', '11am', '12pm', '1pm', '2pm', '3pm', '4pm', '5pm', '6pm', '7pm'];
 
 var cookStores = []
 
 //cookie store constructor
 
-function cookStore(name, minCustHr, maxCustHr, cookiesPerCust, title, loc) {
+function cookStore(name, minCustHr, maxCustHr, cookiesPerCust) {
     this.name = name;
     this.minCustHr = minCustHr;
     this.maxCustHr = maxCustHr;
     this.cookiesPerCust = cookiesPerCust;
     this.cookiesEachHour = [];
     this.totalCooks= 0;
-    this.location= loc;
     cookStores.push(this);
 };
 
@@ -26,7 +27,6 @@ cookStore.prototype.calcCooksPerHour = function(){
     for(var i=0; i < hours.length; i++){
         this.cookiesEachHour.push(Math.round(this.custPerHr() * this.cookiesPerCust));
         this.totalCooks += this.cookiesEachHour[i];
-        console.log(this.totalCooks);
     };
 };
 
@@ -38,19 +38,20 @@ cookStore.prototype.render = function() {
     tdElFirst.textContent = this.name;
     trEl.appendChild(tdElFirst);
 
-    for (var i = 0; i < this.cookiesEachHour.length; i++) {
+    for (var i = 0; i < hours.length; i++) {
         var tdEl = document.createElement('td');
         tdEl.textContent = this.cookiesEachHour[i];
         trEl.appendChild(tdEl);
     }
     var tdElLast = document.createElement('td')
     tdElLast.textContent = this.totalCooks;
+    this.totalCooks = 0;
     trEl.appendChild(tdElLast);
 
     cookTable.appendChild(trEl);
 }
-    
-// table head render function
+
+// render table head function
 
 function renderHead(){
     var trEl = document.createElement('tr');
@@ -72,14 +73,6 @@ function renderHead(){
     cookTable.appendChild(trEl);
 }
 
-// create store objects
-
-var firstAndPike = new cookStore('1st and Pike', 23, 65, 6.3);
-var seaTac = new cookStore('SeaTac Airport', 3, 24, 1.2);
-var seattleCenter = new cookStore('Seattle Center', 11, 38, 3.7);
-var capitolHill = new cookStore('Capitol Hill', 20, 38, 2.3);
-var alki = new cookStore('Alki', 2, 16, 4.6);
-
 // render table body function
 
 function renderBody(){
@@ -88,6 +81,7 @@ function renderBody(){
     }
 }
 
+// render table foot function
 
 function renderFoot(){
     var hourlySums = [];
@@ -102,8 +96,7 @@ function renderFoot(){
         }
         hourlySums.push(hourlyTotal);
     }
-    console.log(hourlySums);
-
+    
     var trEl = document.createElement('tr');
     
     var tdElFirst = document.createElement('td')
@@ -115,16 +108,75 @@ function renderFoot(){
         tdEl.textContent = hourlySums[i];
         trEl.appendChild(tdEl);
     }
-
+    
     var tdElLast = document.createElement('td')
     tdElLast.textContent = grandTotal;
     trEl.appendChild(tdElLast);
     
     cookTable.appendChild(trEl);
 }
+// render all function to populate table
 
-// call render functions to populate table
+function renderAll(){
+    renderHead();
+    renderBody();
+    renderFoot();
+}
 
-renderHead();
-renderBody();
-renderFoot();
+// event handler for new location form submission
+
+function handleFormSubmit(event) {
+    
+    event.preventDefault();
+    
+    // validation goes here
+
+    var locId = event.target.locName.value;
+    var minCust = event.target.minCust.value;
+    var maxCust = event.target.maxCust.value;
+    var salesPCust = event.target.salesPCust.value;
+
+    var newLoc = new cookStore(locId, minCust, maxCust, salesPCust);
+
+    // BAD CODE HERE, stretch goal for Wednesday, don't know 
+    //what's wrong
+
+    // for(var i=0; i < cookStores.length; i++){
+    //     if (locId === cookStores[i].name){
+    //     console.log ('names match')
+    //         for (var j=0; j < hours.length; j++){
+    //             cookStores[i].cookiesEachHour[j] = cookStores[cookStores.length -1].cookiesEachHour[j];
+    //         };
+    //     }
+    //     else {
+    //         break;
+    //     }  
+    // }
+
+    event.target.locName.value = null;
+    event.target.minCust.value = null;
+    event.target.maxCust.value = null;
+    event.target.salesPCust.value = null;
+
+    cookTable.textContent = null;
+    
+    renderAll();
+}
+
+// event listener for Form Submission
+
+newLocForm.addEventListener('submit', handleFormSubmit);
+
+// create store objects
+
+var firstAndPike = new cookStore('1st and Pike', 23, 65, 6.3);
+var seaTac = new cookStore('SeaTac Airport', 3, 24, 1.2);
+var seattleCenter = new cookStore('Seattle Center', 11, 38, 3.7);
+var capitolHill = new cookStore('Capitol Hill', 20, 38, 2.3);
+var alki = new cookStore('Alki', 2, 16, 4.6);
+
+
+
+// first call 
+
+renderAll();
