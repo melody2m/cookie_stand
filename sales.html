@@ -12,6 +12,26 @@
 
     <img src="img/salmon.png" alt="a fish">
 
+    <form id="newLocForm">
+        <fieldset>
+            <legend>Create or Update Location Data</legend>
+
+            <label for="locName">Name: </label>
+            <input name="locName" type="text" size="20" />
+
+            <label for="minCust">Min. Customers: </label>
+            <input name="minCust" type="number" size="5" />
+
+            <label for="maxCust">Max Customers: </label>
+            <input name="maxCust" type="number" size="5" />
+
+            <label for="salesPCust">Sales Per Customer: </label>
+            <input name= "salesPCust" type="number" size="3" />
+
+            <button type="submit">Submit</button>
+        </fieldset>
+    </form>
+
     <table id="cookTable"></table>
 
     <script src="js/app.js"></script>
