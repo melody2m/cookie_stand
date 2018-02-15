@@ -169,18 +169,16 @@ newLocForm.addEventListener('submit', handleFormSubmit);
 
 // create store objects
 
-var firstAndPike = new cookStore('1st and Pike', 23, 65, 6.3);
 firstAndPike.calcCooksPerHour();
-var seaTac = new cookStore('SeaTac Airport', 3, 24, 1.2);
+var firstAndPike = new cookStore('1st and Pike', 23, 65, 6.3);
 seaTac.calcCooksPerHour();
-var seattleCenter = new cookStore('Seattle Center', 11, 38, 3.7);
+var seaTac = new cookStore('SeaTac Airport', 3, 24, 1.2);
 seattleCenter.calcCooksPerHour();
-var capitolHill = new cookStore('Capitol Hill', 20, 38, 2.3);
+var seattleCenter = new cookStore('Seattle Center', 11, 38, 3.7);
 capitolHill.calcCooksPerHour();
-var alki = new cookStore('Alki', 2, 16, 4.6);
+var capitolHill = new cookStore('Capitol Hill', 20, 38, 2.3);
 alki.calcCooksPerHour();
-
-
+var alki = new cookStore('Alki', 2, 16, 4.6);
 
 // first call 
 
