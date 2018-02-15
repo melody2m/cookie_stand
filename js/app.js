@@ -31,7 +31,6 @@ cookStore.prototype.calcCooksPerHour = function(){
 };
 
 cookStore.prototype.render = function() {
-    this.calcCooksPerHour();
     var trEl = document.createElement('tr');
     
     var tdElFirst = document.createElement('td')
@@ -45,7 +44,7 @@ cookStore.prototype.render = function() {
     }
     var tdElLast = document.createElement('td')
     tdElLast.textContent = this.totalCooks;
-    this.totalCooks = 0;
+
     trEl.appendChild(tdElLast);
 
     cookTable.appendChild(trEl);
@@ -128,38 +127,38 @@ function renderAll(){
 function handleFormSubmit(event) {
     
     event.preventDefault();
-    
-    // validation goes here
+    cookTable.textContent = null;
 
+    // validation goes here
+    
     var locId = event.target.locName.value;
     var minCust = event.target.minCust.value;
     var maxCust = event.target.maxCust.value;
     var salesPCust = event.target.salesPCust.value;
-
+    
+    console.log(locId);
+    
     var newLoc = new cookStore(locId, minCust, maxCust, salesPCust);
-
-    // BAD CODE HERE, stretch goal for Wednesday, don't know 
-    //what's wrong
-
-    // for(var i=0; i < cookStores.length; i++){
-    //     if (locId === cookStores[i].name){
-    //     console.log ('names match')
-    //         for (var j=0; j < hours.length; j++){
-    //             cookStores[i].cookiesEachHour[j] = cookStores[cookStores.length -1].cookiesEachHour[j];
-    //         };
-    //     }
-    //     else {
-    //         break;
-    //     }  
-    // }
-
+    
     event.target.locName.value = null;
     event.target.minCust.value = null;
     event.target.maxCust.value = null;
     event.target.salesPCust.value = null;
-
-    cookTable.textContent = null;
     
+    cookStores[cookStores.length - 1].calcCooksPerHour();
+
+    for(var i = 0; i < cookStores.length - 1; i++){
+        console.log (cookStores[i].name);
+        if (cookStores[cookStores.length - 1].name === cookStores[i].name){
+            cookStores[i].cookiesEachHour = [];
+            cookStores[i].cookiesEachHour = cookStores[cookStores.length - 1].cookiesEachHour;
+            cookStores.pop();
+        }
+        else {
+            console.log ('names did not match')
+        }  
+    }
+
     renderAll();
 }
 
@@ -170,10 +169,15 @@ newLocForm.addEventListener('submit', handleFormSubmit);
 // create store objects
 
 var firstAndPike = new cookStore('1st and Pike', 23, 65, 6.3);
+firstAndPike.calcCooksPerHour();
 var seaTac = new cookStore('SeaTac Airport', 3, 24, 1.2);
+seaTac.calcCooksPerHour();
 var seattleCenter = new cookStore('Seattle Center', 11, 38, 3.7);
+seattleCenter.calcCooksPerHour();
 var capitolHill = new cookStore('Capitol Hill', 20, 38, 2.3);
+capitolHill.calcCooksPerHour();
 var alki = new cookStore('Alki', 2, 16, 4.6);
+alki.calcCooksPerHour();
 
 
 
