@@ -1,3 +1,64 @@
-h2 {
-    font-family: 'Shadows Into Light Two', cursive;
+body {
+    background-color: rgb(0, 0, 0);
+    font-family: Arial, Verdana, sans-serif;
 }
+#page {
+    max-width: 1000px;
+    min-width: 800px;
+    margin: 10px auto 10px auto;
+    padding: 20px;
+    border: 4px dotted salmon;
+    background-color: #ffffff;}
+h1 {
+    font-family: 'Shadows Into Light Two', cursive;
+    text-align: center;
+    margin: 10px auto 10px auto;
+}
+ul {
+    width: 800px;
+    padding: 15px;
+    margin: 0px auto 0px auto;
+    border-top: 3px groove #000;
+    border-bottom: 1px solid #000;
+    text-align:center;
+}
+li {
+    display:inline;
+    margin: 0px 3px;
+}
+p {
+    text-align: center;
+    width: 700px;
+    margin: 20px auto 20px auto;
+}
+
+img { 
+    margin: 20 px 20px 20px 20px;
+}
+
+.column1 {
+    float:left;
+    width: 200px;
+    margin: 10px;
+}
+.column2 {
+    float:left;
+    width: 200px;
+    margin: 10px;
+}
+
+a {
+    color: salmon;
+    text-transform: uppercase;
+    padding: 5px 20px 5px 20px;
+}
+a:hover {
+    color: #000000;
+    background-color: salmon
+}
+}
+
+form {
+    font-family: Georgia, 'Times New Roman', Times, serif
+}
+
