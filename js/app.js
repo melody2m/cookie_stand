@@ -98,7 +98,7 @@ function renderFoot(){
     
     var trEl = document.createElement('tr');
     
-    var tdElFirst = document.createElement('td')
+    var tdElFirst = document.createElement('td');
     tdElFirst.textContent = 'Totals';
     trEl.appendChild(tdElFirst);
     
@@ -108,7 +108,7 @@ function renderFoot(){
         trEl.appendChild(tdEl);
     }
     
-    var tdElLast = document.createElement('td')
+    var tdElLast = document.createElement('td');
     tdElLast.textContent = grandTotal;
     trEl.appendChild(tdElLast);
     
@@ -138,14 +138,15 @@ function handleFormSubmit(event) {
     
     console.log(locId);
     
-    var newLoc = new cookStore(locId, minCust, maxCust, salesPCust);
-    
+    var newLoc = new cookStore(locId, parseInt(minCust), parseInt(maxCust), parse(salesPCust));
+
     event.target.locName.value = null;
     event.target.minCust.value = null;
     event.target.maxCust.value = null;
     event.target.salesPCust.value = null;
     
     cookStores[cookStores.length - 1].calcCooksPerHour();
+    console.log(cookStores[cookStores.length - 1])
     console.log(cookStores[cookStores.length - 1].totalCooks)
 
     for(var i = 0; i < cookStores.length - 1; i++){
@@ -179,8 +180,6 @@ var capitolHill = new cookStore('Capitol Hill', 20, 38, 2.3);
 capitolHill.calcCooksPerHour();
 var alki = new cookStore('Alki', 2, 16, 4.6);
 alki.calcCooksPerHour();
-
-
 
 // first call 
 
