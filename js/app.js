@@ -146,12 +146,13 @@ function handleFormSubmit(event) {
     event.target.salesPCust.value = null;
     
     cookStores[cookStores.length - 1].calcCooksPerHour();
+    console.log(cookStores[cookStores.length - 1].totalCooks)
 
     for(var i = 0; i < cookStores.length - 1; i++){
         console.log (cookStores[i].name);
         if (cookStores[cookStores.length - 1].name === cookStores[i].name){
-            cookStores[i].cookiesEachHour = [];
             cookStores[i].cookiesEachHour = cookStores[cookStores.length - 1].cookiesEachHour;
+            cookStores[i].totalCooks = cookStores[cookStores.length -1].totalCooks;
             cookStores.pop();
         }
         else {
